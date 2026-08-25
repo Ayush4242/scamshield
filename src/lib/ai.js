@@ -1,22 +1,38 @@
 import OpenAI from "openai";
 
-const getOpenAIClient = () => {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error("OPENAI_API_KEY is not defined in environment variables");
+const getAIClient = () => {
+  // 1. Check for Groq API Key (100% Free, no credit card needed at console.groq.com)
+  if (process.env.GROQ_API_KEY && !process.env.GROQ_API_KEY.includes("mock")) {
+    return {
+      client: new OpenAI({
+        apiKey: process.env.GROQ_API_KEY,
+        baseURL: "https://api.groq.com/openai/v1",
+      }),
+      model: "llama-3.3-70b-versatile",
+    };
   }
-  return new OpenAI({ apiKey });
+
+  // 2. Fallback to OpenAI API Key
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey || apiKey.includes("mock")) {
+    throw new Error("No valid AI API key defined in environment variables");
+  }
+
+  return {
+    client: new OpenAI({ apiKey }),
+    model: "gpt-4o-mini",
+  };
 };
 
 /**
- * Perform semantic scam analysis using OpenAI API directly
+ * Perform semantic scam analysis using AI API directly
  * @param {"URL" | "MESSAGE"} type 
  * @param {string} content 
  * @returns {Promise<{category: string, riskScore: number, confidence: number, reasons: string[], recommendation: string}>}
  */
 export async function analyzeContentWithAI(type, content) {
   try {
-    const openai = getOpenAIClient();
+    const { client, model } = getAIClient();
 
     const systemPrompt = `You are a professional, highly cautious cybersecurity analysis engine specialized in identifying phishing, scams, credential theft, and social engineering attacks.
     
@@ -39,8 +55,8 @@ export async function analyzeContentWithAI(type, content) {
 
     const userPrompt = `Please analyze this suspicious ${type}:\n\n"${content}"`;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await client.chat.completions.create({
+      model,
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
@@ -60,7 +76,7 @@ export async function analyzeContentWithAI(type, content) {
       recommendation: analysis.recommendation || "Do not click links or provide credentials.",
     };
   } catch (error) {
-    console.error("OpenAI API call failed:", error.message || error);
+    console.error("AI API call failed:", error.message || error);
     throw error;
   }
 }
