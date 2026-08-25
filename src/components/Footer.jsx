@@ -11,22 +11,22 @@ export default function Footer() {
           Built by <span className="text-foreground font-semibold">Ayush Ranjan</span>
         </p>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <Link
+          <a
             href="https://github.com/Ayush4242/scamshield"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
             GitHub
-          </Link>
-          <Link
+          </a>
+          <a
             href="[PLACEHOLDER_LINKEDIN_URL]"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
             LinkedIn
-          </Link>
+          </a>
         </div>
       </div>
     </footer>
