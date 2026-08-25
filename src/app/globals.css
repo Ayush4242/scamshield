@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@config "../../tailwind.config.js";
+@source "../**/*.{js,jsx}";
+@source "../../src/**/*.{js,jsx}";
 
 /* 
  * ScamShield Design System — Dark Mode Theme
@@ -52,10 +55,10 @@
   --radius-sm: 0.25rem;
 }
 
-/* Explicit CSS Rules to guarantee custom theme colors render in all browsers */
+/* Base Body and Theme Fallbacks */
 body {
-  background-color: var(--background) !important;
-  color: var(--foreground) !important;
+  background-color: #090d16 !important;
+  color: #f1f5f9 !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -63,47 +66,47 @@ body {
 }
 
 .bg-background {
-  background-color: var(--background) !important;
+  background-color: #090d16 !important;
 }
 
 .text-foreground {
-  color: var(--foreground) !important;
+  color: #f1f5f9 !important;
 }
 
 .bg-card {
-  background-color: var(--card) !important;
+  background-color: #0f172a !important;
 }
 
 .text-card-foreground {
-  color: var(--card-foreground) !important;
+  color: #f1f5f9 !important;
 }
 
 .bg-muted {
-  background-color: var(--muted) !important;
+  background-color: #1e293b !important;
 }
 
 .text-muted-foreground {
-  color: var(--muted-foreground) !important;
+  color: #94a3b8 !important;
 }
 
 .border-border {
-  border-color: var(--border) !important;
+  border-color: #1e293b !important;
 }
 
 .border-input {
-  border-color: var(--input) !important;
+  border-color: #1e293b !important;
 }
 
 .bg-popover {
-  background-color: var(--popover) !important;
+  background-color: #090d16 !important;
 }
 
 .text-popover-foreground {
-  color: var(--popover-foreground) !important;
+  color: #f1f5f9 !important;
 }
 
 *,
 *::before,
 *::after {
-  border-color: var(--border);
+  border-color: #1e293b;
 }
