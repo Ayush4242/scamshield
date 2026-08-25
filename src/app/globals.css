@@ -1,112 +1,47 @@
-@import "tailwindcss";
-@config "../../tailwind.config.js";
-@source "../**/*.{js,jsx}";
-@source "../../src/**/*.{js,jsx}";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* 
  * ScamShield Design System — Dark Mode Theme
  */
 
-:root {
-  --background: #090d16;
-  --foreground: #f1f5f9;
-  --card: #0f172a;
-  --card-foreground: #f1f5f9;
-  --popover: #090d16;
-  --popover-foreground: #f1f5f9;
-  --border: #1e293b;
-  --input: #1e293b;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #991b1b;
-  --destructive-foreground: #ffffff;
-  --ring: #3b82f6;
-  --radius: 0.75rem;
-}
+@layer base {
+  :root {
+    --background: #090d16;
+    --foreground: #f1f5f9;
+    --card: #0f172a;
+    --card-foreground: #f1f5f9;
+    --popover: #090d16;
+    --popover-foreground: #f1f5f9;
+    --border: #1e293b;
+    --input: #1e293b;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    --destructive: #991b1b;
+    --destructive-foreground: #ffffff;
+    --ring: #3b82f6;
+    --radius: 0.75rem;
+  }
 
-@theme {
-  --color-background: #090d16;
-  --color-foreground: #f1f5f9;
-  --color-card: #0f172a;
-  --color-card-foreground: #f1f5f9;
-  --color-popover: #090d16;
-  --color-popover-foreground: #f1f5f9;
-  --color-border: #1e293b;
-  --color-input: #1e293b;
-  --color-muted: #1e293b;
-  --color-muted-foreground: #94a3b8;
-  --color-primary: #3b82f6;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #1e293b;
-  --color-secondary-foreground: #f8fafc;
-  --color-accent: #1e293b;
-  --color-accent-foreground: #f8fafc;
-  --color-destructive: #991b1b;
-  --color-destructive-foreground: #ffffff;
-  --color-ring: #3b82f6;
-  --radius-lg: 0.75rem;
-  --radius-md: 0.5rem;
-  --radius-sm: 0.25rem;
-}
+  body {
+    background-color: #090d16 !important;
+    color: #f1f5f9 !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
 
-/* Base Body and Theme Fallbacks */
-body {
-  background-color: #090d16 !important;
-  color: #f1f5f9 !important;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
-.bg-background {
-  background-color: #090d16 !important;
-}
-
-.text-foreground {
-  color: #f1f5f9 !important;
-}
-
-.bg-card {
-  background-color: #0f172a !important;
-}
-
-.text-card-foreground {
-  color: #f1f5f9 !important;
-}
-
-.bg-muted {
-  background-color: #1e293b !important;
-}
-
-.text-muted-foreground {
-  color: #94a3b8 !important;
-}
-
-.border-border {
-  border-color: #1e293b !important;
-}
-
-.border-input {
-  border-color: #1e293b !important;
-}
-
-.bg-popover {
-  background-color: #090d16 !important;
-}
-
-.text-popover-foreground {
-  color: #f1f5f9 !important;
-}
-
-*,
-*::before,
-*::after {
-  border-color: #1e293b;
+  *,
+  *::before,
+  *::after {
+    border-color: #1e293b;
+  }
 }

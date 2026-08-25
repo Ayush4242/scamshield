@@ -6,6 +6,7 @@ export default {
     "./src/app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
