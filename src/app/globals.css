@@ -1,69 +1,109 @@
 @import "tailwindcss";
 
-/*
- * ScamShield Design System — Dark Theme
- *
- * Tailwind CSS v4 requires concrete values in @theme blocks.
- * We define all colors directly as HSL values so Tailwind can
- * resolve them at build time and generate correct utility classes.
+/* 
+ * ScamShield Design System — Dark Mode Theme
  */
 
+:root {
+  --background: #090d16;
+  --foreground: #f1f5f9;
+  --card: #0f172a;
+  --card-foreground: #f1f5f9;
+  --popover: #090d16;
+  --popover-foreground: #f1f5f9;
+  --border: #1e293b;
+  --input: #1e293b;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #991b1b;
+  --destructive-foreground: #ffffff;
+  --ring: #3b82f6;
+  --radius: 0.75rem;
+}
+
 @theme {
-  /* Core colors */
-  --color-background: hsl(224 71% 4%);
-  --color-foreground: hsl(213 31% 91%);
-
-  /* Muted / secondary text */
-  --color-muted: hsl(223 47% 11%);
-  --color-muted-foreground: hsl(215.4 16.3% 56.9%);
-
-  /* Cards */
-  --color-card: hsl(222.2 47.4% 11.2%);
-  --color-card-foreground: hsl(213 31% 91%);
-
-  /* Popover */
-  --color-popover: hsl(224 71% 4%);
-  --color-popover-foreground: hsl(213 31% 91%);
-
-  /* Borders and inputs */
-  --color-border: hsl(216 34% 17%);
-  --color-input: hsl(216 34% 17%);
-  --color-ring: hsl(216 34% 17%);
-
-  /* Primary */
-  --color-primary: hsl(210 40% 98%);
-  --color-primary-foreground: hsl(222.2 47.4% 11.2%);
-
-  /* Secondary */
-  --color-secondary: hsl(222.2 47.4% 11.2%);
-  --color-secondary-foreground: hsl(210 40% 98%);
-
-  /* Accent */
-  --color-accent: hsl(216 34% 17%);
-  --color-accent-foreground: hsl(210 40% 98%);
-
-  /* Destructive */
-  --color-destructive: hsl(0 62.8% 30.6%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-
-  /* Border radius */
+  --color-background: #090d16;
+  --color-foreground: #f1f5f9;
+  --color-card: #0f172a;
+  --color-card-foreground: #f1f5f9;
+  --color-popover: #090d16;
+  --color-popover-foreground: #f1f5f9;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1e293b;
+  --color-secondary-foreground: #f8fafc;
+  --color-accent: #1e293b;
+  --color-accent-foreground: #f8fafc;
+  --color-destructive: #991b1b;
+  --color-destructive-foreground: #ffffff;
+  --color-ring: #3b82f6;
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
 }
 
-/* Base body styles */
+/* Explicit CSS Rules to guarantee custom theme colors render in all browsers */
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-/* Default border color for all elements */
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.bg-card {
+  background-color: var(--card) !important;
+}
+
+.text-card-foreground {
+  color: var(--card-foreground) !important;
+}
+
+.bg-muted {
+  background-color: var(--muted) !important;
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+.border-border {
+  border-color: var(--border) !important;
+}
+
+.border-input {
+  border-color: var(--input) !important;
+}
+
+.bg-popover {
+  background-color: var(--popover) !important;
+}
+
+.text-popover-foreground {
+  color: var(--popover-foreground) !important;
+}
+
 *,
 *::before,
 *::after {
-  border-color: var(--color-border);
+  border-color: var(--border);
 }

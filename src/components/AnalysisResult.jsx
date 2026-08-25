@@ -17,7 +17,7 @@ export default function AnalysisResult({ result }) {
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden shadow-lg transition-all duration-300">
       {/* Header section with risk indicator */}
-      <div className={`p-6 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-linear-to-b from-muted/50 to-transparent`}>
+      <div className={`p-6 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-b from-muted/50 to-transparent`}>
         <div className="space-y-1">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Analysis Result ({type})
