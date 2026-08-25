@@ -76,9 +76,12 @@ export async function registerUser(prevState, formData) {
     await setSession(newUser);
   } catch (error) {
     console.error("Register Error:", error);
+    const msg = error?.code === "ECONNREFUSED" || error?.message?.includes("connect")
+      ? "Database connection failed. Ensure PostgreSQL service is running and DATABASE_URL is configured in .env"
+      : error?.message || "A database error occurred. Please try again.";
     return {
       success: false,
-      error: "A database error occurred. Please try again.",
+      error: msg,
     };
   }
 
@@ -134,9 +137,12 @@ export async function loginUser(prevState, formData) {
     });
   } catch (error) {
     console.error("Login Error:", error);
+    const msg = error?.code === "ECONNREFUSED" || error?.message?.includes("connect")
+      ? "Database connection failed. Ensure PostgreSQL service is running and DATABASE_URL is configured in .env"
+      : error?.message || "A database error occurred. Please try again.";
     return {
       success: false,
-      error: "A database error occurred. Please try again.",
+      error: msg,
     };
   }
 
