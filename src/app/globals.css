@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 /* 
- * ScamShield Design System — Dark Mode Theme
+ * ScamShield Design System — Cyber Threat Intelligence Theme
  */
 
 @layer base {
   :root {
-    --background: #090d16;
+    --background: #070b14;
     --foreground: #f1f5f9;
-    --card: #0f172a;
+    --card: #0e1524;
     --card-foreground: #f1f5f9;
     --popover: #090d16;
     --popover-foreground: #f1f5f9;
-    --border: #1e293b;
-    --input: #1e293b;
-    --muted: #1e293b;
+    --border: #1b263b;
+    --input: #1b263b;
+    --muted: #131c2e;
     --muted-foreground: #94a3b8;
     --primary: #3b82f6;
     --primary-foreground: #ffffff;
-    --secondary: #1e293b;
+    --secondary: #131c2e;
     --secondary-foreground: #f8fafc;
-    --accent: #1e293b;
+    --accent: #1b263b;
     --accent-foreground: #f8fafc;
     --destructive: #991b1b;
     --destructive-foreground: #ffffff;
@@ -31,17 +31,57 @@
   }
 
   body {
-    background-color: #090d16 !important;
+    background-color: #070b14 !important;
     color: #f1f5f9 !important;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
   }
 
   *,
   *::before,
   *::after {
-    border-color: #1e293b;
+    border-color: #1b263b;
   }
+}
+
+/* Custom Glassmorphism & UI Accents */
+.glass-card {
+  background: rgba(14, 21, 36, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(27, 38, 59, 0.8);
+}
+
+.glass-nav {
+  background: rgba(7, 11, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(27, 38, 59, 0.8);
+}
+
+/* Radial Glow Backgrounds */
+.glow-blue-top {
+  background: radial-gradient(circle 600px at 50% -100px, rgba(59, 130, 246, 0.15), transparent 70%);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070b14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1b263b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }

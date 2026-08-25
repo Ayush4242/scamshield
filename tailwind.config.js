@@ -6,43 +6,50 @@ export default {
     "./src/app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
+      },
       colors: {
-        background: "#090d16",
-        foreground: "#f1f5f9",
+        background: "#f4f2ec",
+        foreground: "#1c1916",
         card: {
-          DEFAULT: "#0f172a",
-          foreground: "#f1f5f9",
-        },
-        popover: {
-          DEFAULT: "#090d16",
-          foreground: "#f1f5f9",
+          DEFAULT: "#fcfbf8",
+          foreground: "#1c1916",
         },
         muted: {
-          DEFAULT: "#1e293b",
-          foreground: "#94a3b8",
+          DEFAULT: "#ece9e1",
+          foreground: "#6b665c",
         },
-        border: "#1e293b",
-        input: "#1e293b",
+        border: "#ddd8cc",
+        input: "#ddd8cc",
         primary: {
-          DEFAULT: "#3b82f6",
-          foreground: "#ffffff",
+          DEFAULT: "#1c1916",
+          foreground: "#fcfbf8",
         },
         secondary: {
-          DEFAULT: "#1e293b",
-          foreground: "#f8fafc",
+          DEFAULT: "#ece9e1",
+          foreground: "#1c1916",
         },
         accent: {
-          DEFAULT: "#1e293b",
-          foreground: "#f8fafc",
+          DEFAULT: "#2f4a3c",
+          foreground: "#fcfbf8",
         },
         destructive: {
-          DEFAULT: "#991b1b",
+          DEFAULT: "#9b2c2c",
           foreground: "#ffffff",
         },
-        ring: "#3b82f6",
+        ring: "#1c1916",
+        risk: {
+          high: "#9b2c2c",
+          medium: "#9a5b12",
+          low: "#2f6b4f",
+        },
+      },
+      boxShadow: {
+        card: "0 1px 0 rgba(28, 25, 22, 0.04), 0 12px 32px -16px rgba(28, 25, 22, 0.12)",
       },
     },
   },

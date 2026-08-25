@@ -4,6 +4,7 @@ import { useState } from "react";
 import { analyzeContentAction } from "@/app/actions/analysis";
 import AnalysisResult from "./AnalysisResult";
 import Link from "next/link";
+import { Link2, MessageSquare, ShieldCheck, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 
 export default function AnalysisForm() {
   const [type, setType] = useState("URL"); // "URL" | "MESSAGE"
@@ -21,7 +22,6 @@ export default function AnalysisForm() {
 
     const trimmedInput = input.trim();
 
-    // Basic client-side checks
     if (type === "URL") {
       if (trimmedInput.length < 3) {
         setError("Please enter a valid URL (minimum 3 characters)");
@@ -37,38 +37,20 @@ export default function AnalysisForm() {
     setLoading(true);
 
     try {
-      // Invoke server action
       const response = await analyzeContentAction(type, trimmedInput);
       if (response.success) {
-        // If we want to fetch the created analysis details to display
-        // We can run the scanner client side or just get the full result.
-        // Wait, the action performs the analysis and saves it. It returns the analysisId.
-        // Let's create an API route or action to retrieve details, or let the action return the result *along* with the id!
-        // That is an excellent optimization! Let's update analyzeContentAction to also return the calculated result, 
-        // which avoids an extra database query. We'll update src/app/actions/analysis.js in our mind, but first let's see.
-        // Wait! The server action calls createAnalysis which doesn't directly return the object.
-        // Let's update `analyzeContentAction` to return both `{ success: true, analysisId: id, result }`!
-        // Let's check how we wrote analyzeContentAction: it calls `createAnalysis` which returns the newId.
-        // Let's write the handler here assuming we will receive the full result or can link them to it.
-        // Actually, we can fetch it, or have the server action return `{ success: true, analysisId: id, result: runScamAnalysis(type, input) }`!
-        // Yes, that's exactly what we will do.
         setSavedId(response.analysisId);
-        
-        // We can run the scanner to show local results immediately.
-        // Let's update the Server Action to return the result too. Let's make sure it handles that.
-        // For now, let's write the UI logic.
         if (response.result) {
           setResult(response.result);
         } else {
-          // If result isn't directly returned, we can redirect or show link
           setResult({
             type,
             input: trimmedInput,
-            finalScore: response.finalScore || 50,
-            riskLevel: response.riskLevel || "MEDIUM",
-            category: response.category || "Other",
-            reasons: response.reasons || ["Scam analysis completed and stored."],
-            recommendation: response.recommendation || "Verify details carefully.",
+            finalScore: 50,
+            riskLevel: "MEDIUM",
+            category: "Other",
+            reasons: ["Scam analysis completed and stored."],
+            recommendation: "Verify details carefully.",
           });
         }
       } else {
@@ -84,9 +66,13 @@ export default function AnalysisForm() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-        {/* Toggle Tabs */}
-        <div className="flex border-b border-border mb-6">
+      <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        
+        {/* Decorative Top Accent Glow */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-600"></div>
+
+        {/* Segmented Switcher Tabs */}
+        <div className="grid grid-cols-2 p-1.5 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
           <button
             type="button"
             onClick={() => {
@@ -95,14 +81,16 @@ export default function AnalysisForm() {
               setError(null);
               setResult(null);
             }}
-            className={`pb-3 text-sm font-semibold border-b-2 px-4 transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 py-3 rounded-lg text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
               type === "URL"
-                ? "border-blue-500 text-blue-400"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
+                : "text-slate-400 hover:text-slate-200"
             }`}
           >
-            URL Link Check
+            <Link2 className="h-4 w-4" />
+            <span>URL Link Check</span>
           </button>
+          
           <button
             type="button"
             onClick={() => {
@@ -111,64 +99,81 @@ export default function AnalysisForm() {
               setError(null);
               setResult(null);
             }}
-            className={`pb-3 text-sm font-semibold border-b-2 px-4 transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 py-3 rounded-lg text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
               type === "MESSAGE"
-                ? "border-blue-500 text-blue-400"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
+                : "text-slate-400 hover:text-slate-200"
             }`}
           >
-            Message / Text Check
+            <MessageSquare className="h-4 w-4" />
+            <span>Message / Email Scan</span>
           </button>
         </div>
 
         {/* Input Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-muted-foreground mb-2">
-              {type === "URL"
-                ? "Paste the suspicious website link/URL"
-                : "Paste the suspicious message, email content, or SMS text"}
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                {type === "URL" ? "Suspicious Link / Domain URL" : "Suspicious Message / Email Content"}
+              </label>
+              <span className="text-[11px] font-semibold text-slate-500">
+                {type === "URL" ? "Passive string analysis" : "Untrusted text format"}
+              </span>
+            </div>
+
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={
                 type === "URL"
                   ? "e.g., http://secure-banking-verify-update.xyz/login"
-                  : "e.g., Your bank account is frozen. Click here immediately to verify: http://bit.ly/fakeurl"
+                  : "e.g., URGENT: Your bank account has been frozen. Click immediately to verify: http://bit.ly/fake-update"
               }
               rows={4}
               required
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-muted-foreground"
+              className="w-full rounded-xl border border-slate-800 bg-slate-950/90 px-4 py-3.5 text-sm font-mono text-slate-100 placeholder:text-slate-600 focus:border-blue-500/80 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
             />
           </div>
 
           {error && (
-            <div className="text-sm text-rose-400 bg-rose-500/10 border border-rose-500/20 p-3 rounded-md">
-              {error}
+            <div className="flex items-center gap-2 text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 p-3.5 rounded-xl">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span>{error}</span>
             </div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 text-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:via-indigo-500 hover:to-cyan-500 text-white font-extrabold py-3.5 px-6 text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-50 flex items-center justify-center gap-2.5 cursor-pointer"
           >
-            {loading ? "Analyzing..." : "Run Scam Shield Analysis"}
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin text-white" />
+                <span>Running Threat Analysis Engine...</span>
+              </>
+            ) : (
+              <>
+                <ShieldCheck className="h-5 w-5" />
+                <span>Analyze Content Security</span>
+              </>
+            )}
           </button>
         </form>
       </div>
 
       {result && (
-        <div className="space-y-4">
+        <div className="space-y-4 animate-in fade-in duration-300">
           <AnalysisResult result={result} />
           {savedId && (
             <div className="flex justify-end">
               <Link
                 href={`/history/${savedId}`}
-                className="text-sm text-blue-400 hover:underline flex items-center gap-1"
+                className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 group"
               >
-                View Saved History Entry & Add Notes →
+                <span>View Full Record & Attach Personal Note</span>
+                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           )}
