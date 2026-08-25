@@ -1,5 +1,46 @@
 @import "tailwindcss";
 
+/* 
+ * ScamShield Design System
+ * Dark theme with blue/indigo accent colors.
+ * CSS variables are defined at :root level (NOT inside @layer base)
+ * because Tailwind CSS v4 manages its own layers internally.
+ */
+
+:root {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 213 31% 91%;
+
+  --card: 222.2 47.4% 11.2%;
+  --card-foreground: 213 31% 91%;
+
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 216 34% 17%;
+
+  --radius: 0.75rem;
+}
+
+/* Map CSS variables to Tailwind v4 theme tokens */
 @theme {
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
@@ -33,45 +74,16 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
-@layer base {
-  :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 213 31% 91%;
-
-    --card: 222.2 47.4% 11.2%;
-    --card-foreground: 213 31% 91%;
-
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.75rem;
-  }
-}
-
+/* Base body styles */
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Smooth transitions for interactive elements */
+* {
+  border-color: hsl(var(--border));
 }
