@@ -1,6 +1,25 @@
 import pg from "pg";
+import fs from "fs";
+import path from "path";
 
-const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/scamshield";
+// Auto-detect DATABASE_URL from process.env or .env file
+let connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  try {
+    const envPath = path.resolve(process.cwd(), ".env");
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, "utf8");
+      const match = content.match(/DATABASE_URL=["']?([^"'\r\n]+)["']?/);
+      if (match) {
+        connectionString = match[1];
+      }
+    }
+  } catch (e) {}
+}
+
+if (!connectionString) {
+  connectionString = "postgresql://postgres:123456789@127.0.0.1:5432/scamshield";
+}
 
 const pool = new pg.Pool({
   connectionString,
